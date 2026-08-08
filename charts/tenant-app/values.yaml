@@ -1,0 +1,16 @@
+tenant: time-payments
+app: payments-api
+replicas: 1
+port: 8080
+probePath: /
+image:
+  repository: ghcr.io/slackerwx/virtualab-sample-go
+  tag: ""
+imagePullSecret: ghcr-pull
+resources:
+  limits: { cpu: 200m, memory: 128Mi }
+  requests: { cpu: 25m, memory: 32Mi }
+quota:
+  pods: "10"
+  cpu: "1"
+  memory: 1Gi

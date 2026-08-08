@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app }}
+  labels: { app: {{ .Values.app }}, tenant: {{ .Values.tenant }} }
+spec:
+  replicas: {{ .Values.replicas | int }}
+  selector:
+    matchLabels: { app: {{ .Values.app }} }
+  template:
+    metadata:
+      labels: { app: {{ .Values.app }}, tenant: {{ .Values.tenant }} }
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}
+      containers:
+        - name: {{ .Values.app }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.port | int }}
+          readinessProbe:
+            httpGet: { path: {{ .Values.probePath }}, port: {{ .Values.port | int }} }
+          livenessProbe:
+            httpGet: { path: {{ .Values.probePath }}, port: {{ .Values.port | int }} }
+          resources:
+{{ toYaml .Values.resources | indent 12 }}

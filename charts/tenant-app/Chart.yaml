@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tenant-app
+description: app de tenant do virtualab - deployment + service + baseline de namespace (quota, netpol, rbac)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

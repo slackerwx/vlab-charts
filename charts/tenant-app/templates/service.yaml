@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app }}
+  labels: { app: {{ .Values.app }}, tenant: {{ .Values.tenant }} }
+spec:
+  selector: { app: {{ .Values.app }} }
+  ports:
+    - port: {{ .Values.port | int }}
+      targetPort: {{ .Values.port | int }}

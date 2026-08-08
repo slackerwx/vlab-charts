@@ -1,0 +1,15 @@
+name: lint
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  ct-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: azure/setup-helm@v4
+        with: { version: v3.21.3 }
+      - uses: helm/chart-testing-action@v2.7.0
+      - run: ct lint --all --config ct.yaml
